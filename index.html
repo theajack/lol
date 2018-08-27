@@ -18,10 +18,77 @@
     height:100%;
     margin:0;
     padding:0;
-  }</style>
+    position:relative;
+  }
+  #top{
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+  #bottom{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 120px;
+    height: 50px;
+    background: #000;
+    z-index: 100;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  #info{
+    position: absolute;
+    color: #fff;
+    z-index: 1000;
+    width: 100%;
+    top: 2px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  </style>
   <body>
   <iframe src="https://player.twitch.tv/?channel=ass_dave" width='100%' height='100%' frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
+
+  <div id="top"></div>
+  <div id='bottom'></div>
+  <!--<div id='bottom'  onclick='toggleFullScreen(event)'>点我全屏</div>-->
+  <div id="info" onclick='jump()'>
+    按F11可全屏播放。转播不易，欢迎关注斗鱼主播，房间号2244198，点我进房间关注。谢谢！
+  </div>
     <script src="http://www.theajack.com/assets/js/jetter.min.js"></script>
     <script name="lol转播" src="http://www.theajack.com/assets/js/stat.js"></script>
+    <script type="text/javascript">
+      function jump(){
+        window.open('https://www.douyu.com/2244198');
+      }
+      function FullScreen(el){
+        var isFullscreen=document.fullScreen||document.mozFullScreen||document.webkitIsFullScreen;
+        if(!isFullscreen){//进入全屏,多重短路表达式
+        (el.requestFullscreen&&el.requestFullscreen())||
+        (el.mozRequestFullScreen&&el.mozRequestFullScreen())||
+        (el.webkitRequestFullscreen&&el.webkitRequestFullscreen())||(el.msRequestFullscreen&&el.msRequestFullscreen());
+
+        }else{	//退出全屏,三目运算符
+        document.exitFullscreen?document.exitFullscreen():
+        document.mozCancelFullScreen?document.mozCancelFullScreen():
+        document.webkitExitFullscreen?document.webkitExitFullscreen():'';
+      }
+    }
+    function toggleFullScreen(e){
+      var el=e.srcElement||e.target;//target兼容Firefox
+      el.innerHTML=='点我全屏'?el.innerHTML='退出全屏':el.innerHTML='点我全屏';
+      FullScreen(el);
+    }
+    </script>
   </body>
 </html>
